@@ -89,8 +89,10 @@ federal-documents-rag/
 ├── app.py                
 ├── data_pipeline.py       
 └── requirements.txt
-**Contact**
-Divyabarathi
 
+
+**Contact**
+
+Divyabarathi
 Email: bharathi.divya87@gmail.com
 
