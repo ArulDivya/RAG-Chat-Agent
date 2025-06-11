@@ -1,0 +1,12 @@
+{
+    "configurations": [
+        {
+            "name": "Ollama Debug",
+            "type": "python",
+            "request": "launch",
+            "program": "ollama",
+            "args": ["serve"],
+            "console": "integratedTerminal"
+        }
+    ]
+}

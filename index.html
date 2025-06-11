@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Federal Docs Chat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow p-6">
+        <h1 class="text-2xl font-bold mb-4">Federal Documents Agent</h1>
+        <div id="chat" class="mb-4 h-96 overflow-y-auto border p-4 rounded-lg"></div>
+        <div class="flex">
+            <input id="query" type="text" placeholder="Ask about federal documents..." 
+                   class="flex-1 border p-2 rounded-l-lg">
+            <button onclick="sendQuery()" 
+                    class="bg-blue-600 text-white px-4 rounded-r-lg">Send</button>
+        </div>
+    </div>
+
+    <script>
+        async function sendQuery() {
+            const query = document.getElementById('query').value;
+            if (!query) return;
+            
+            const chat = document.getElementById('chat');
+            chat.innerHTML += `<div class="text-right mb-2"><span class="bg-blue-100 p-2 rounded-lg">${query}</span></div>`;
+            
+            try {
+                const response = await fetch('http://localhost:8000/api/query', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({query: query})
+                });
+                
+                const data = await response.json();
+                chat.innerHTML += `<div class="text-left mb-2"><span class="bg-gray-200 p-2 rounded-lg">${data.response}</span></div>`;
+            } catch (error) {
+                chat.innerHTML += `<div class="text-left mb-2 text-red-500">Error: ${error.message}</div>`;
+            }
+            
+            document.getElementById('query').value = '';
+            chat.scrollTop = chat.scrollHeight;
+        }
+    </script>
+</body>
+</html>
